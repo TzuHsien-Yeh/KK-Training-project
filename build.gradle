@@ -2,6 +2,9 @@
 buildscript {
     ext {
         version_core = '1.9.0'
+        version_retrofit = '2.9.0'
+        version_gson = '2.10'
+        version_kotlin_coroutines = '1.6.4'
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.45"
