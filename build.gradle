@@ -5,9 +5,11 @@ buildscript {
         version_retrofit = '2.9.0'
         version_gson = '2.10'
         version_kotlin_coroutines = '1.6.4'
+        version_navigation = '2.5.3'
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.45"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$version_navigation"
     }
 }
 plugins {

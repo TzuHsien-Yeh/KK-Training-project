@@ -1,5 +1,7 @@
 package com.example.sampleproject.feature_travel.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Data(
     val address: String,
     val category: List<Category>,
@@ -17,11 +19,11 @@ data class Data(
     val modified: String,
     val months: String,
     val name: String,
-    val name_zh: Any,
+    @SerializedName("name_zh") val nameZh: Any,
     val nlat: Double,
-    val official_site: String,
-    val open_status: Int,
-    val open_time: String,
+    @SerializedName("official_site") val officialSite: String,
+    @SerializedName("open_status") val openStatus: Int,
+    @SerializedName("open_time") val openTime: String,
     val remind: String,
     val service: List<Service>,
     val staytime: String,
