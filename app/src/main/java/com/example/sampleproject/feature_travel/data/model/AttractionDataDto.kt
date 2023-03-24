@@ -2,7 +2,7 @@ package com.example.sampleproject.feature_travel.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Data(
+data class AttractionDataDto(
     val address: String,
     val category: List<Category>,
     val distric: String,

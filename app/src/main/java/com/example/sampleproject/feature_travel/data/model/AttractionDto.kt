@@ -1,6 +1,6 @@
 package com.example.sampleproject.feature_travel.data.model
 
-data class AttractionResponse(
-    val data: List<Data>,
+data class AttractionDto(
+    val data: List<AttractionDataDto>,
     val total: Int
 )

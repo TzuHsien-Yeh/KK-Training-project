@@ -1,9 +1,11 @@
 package com.example.sampleproject.di
 
 import com.example.sampleproject.BuildConfig
+import com.example.sampleproject.feature_travel.data.repository.TravelRepositoryImpl
 import com.example.sampleproject.feature_travel.data.source.TravelDataSource
 import com.example.sampleproject.feature_travel.data.source.remote.TravelRemoteDataSource
 import com.example.sampleproject.feature_travel.data.source.remote.network.TravelApiService
+import com.example.sampleproject.feature_travel.domain.repository.TravelRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +26,9 @@ object AppModule {
         travelApiService: TravelApiService
     ): TravelDataSource = TravelRemoteDataSource(travelApiService)
 
-    // TODO: provide repository
+    @Provides
+    @Singleton
+    fun provideTravelRepository(
+        travelDataSource: TravelDataSource
+    ): TravelRepository = TravelRepositoryImpl(travelDataSource)
 }

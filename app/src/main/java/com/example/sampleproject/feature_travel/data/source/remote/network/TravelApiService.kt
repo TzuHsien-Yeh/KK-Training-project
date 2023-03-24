@@ -1,6 +1,6 @@
 package com.example.sampleproject.feature_travel.data.source.remote.network
 
-import com.example.sampleproject.feature_travel.data.model.AttractionResponse
+import com.example.sampleproject.feature_travel.data.model.AttractionDto
 import retrofit2.http.*
 
 interface TravelApiService {
@@ -10,7 +10,7 @@ interface TravelApiService {
     suspend fun getAttractions(
         @Path("lang") lang: String,
         @Query("page") page: Int
-    ): AttractionResponse
+    ): AttractionDto
 
     companion object {
         const val ENDPOINT_ATTRACTION = "/Attractions"
