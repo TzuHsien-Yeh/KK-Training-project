@@ -2,9 +2,10 @@ package com.example.sampleproject.feature_travel.data.mapper
 
 import com.example.sampleproject.feature_travel.data.model.AttractionDto
 import com.example.sampleproject.feature_travel.domain.model.Attraction
+import com.example.sampleproject.feature_travel.domain.model.AttractionList
 import com.example.sampleproject.feature_travel.domain.model.Image
 
-fun AttractionDto.toAttractionList(): List<Attraction> {
+fun AttractionDto.toAttractionList(): AttractionList {
     val list = mutableListOf<Attraction>()
 
     for(attraction in this.data){
@@ -24,5 +25,8 @@ fun AttractionDto.toAttractionList(): List<Attraction> {
         list.add(attractionToDisplay)
     }
 
-    return list
+    val attractionList = AttractionList(list)
+    attractionList.total = this.total
+
+    return attractionList
 }

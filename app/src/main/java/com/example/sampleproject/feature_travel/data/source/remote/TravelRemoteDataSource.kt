@@ -25,7 +25,7 @@ class TravelRemoteDataSource @Inject constructor(
             }
 
             try {
-                val result = travelApiService.getAttractions("zh-tw",page)
+                val result = travelApiService.getAttractions(lang, page)
 
                 Timber.d("apiResponse = ${result.data}")
 

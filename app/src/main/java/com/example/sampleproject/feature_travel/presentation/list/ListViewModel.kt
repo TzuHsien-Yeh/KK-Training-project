@@ -1,5 +1,6 @@
 package com.example.sampleproject.feature_travel.presentation.list
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ class ListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val fetchedData = mutableListOf<Attraction>()
+    private var total = 0
 
     private val _attractionList = MutableLiveData<List<Attraction>?>()
     val attractionList: LiveData<List<Attraction>?>
@@ -29,13 +31,20 @@ class ListViewModel @Inject constructor(
     val errorMsg: LiveData<String?>
         get() = _errorMsg
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     fun getAttractions(){
         viewModelScope.launch {
 
-            when (val attractionsResult = getAttractionsUseCase(page = 1)){
+            when (val attractionsResult = getAttractionsUseCase()){
                 is Resource.Success -> {
 
-                    attractionsResult.data?.let { fetchedData.addAll(it) }
+                    attractionsResult.data?.let {
+                        fetchedData.addAll(it.list)
+                        total = it.total
+                    }
 
                     Timber.d("attractionsResult.data  ${attractionsResult.data}")
                 }
@@ -47,6 +56,39 @@ class ListViewModel @Inject constructor(
 
             _attractionList.value = fetchedData
         }
+    }
+
+    fun loadMoreAttractions() {
+
+        if (needToLoadMoreAttractions()){
+
+            _isLoading.value = true
+
+            viewModelScope.launch {
+
+                when (val attractionsResult = getAttractionsUseCase()){
+                    is Resource.Success -> {
+                        attractionsResult.data?.let {
+                            fetchedData.addAll(it.list)
+                            total = it.total
+                        }
+                        _isLoading.value = false
+                    }
+                    is Resource.Error -> {
+                        _errorMsg.value = attractionsResult.message
+                        _isLoading.value = false
+                    }
+                }
+
+                // Update list to be submitted
+                _attractionList.value = fetchedData
+            }
+
+        }
+    }
+
+    private fun needToLoadMoreAttractions(): Boolean {
+        return total > fetchedData.size
     }
 
 }
