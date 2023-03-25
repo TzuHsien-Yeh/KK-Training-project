@@ -19,6 +19,8 @@ class ListViewModel @Inject constructor(
     private val  getAttractionsUseCase: GetAttractionsUseCase
 ) : ViewModel() {
 
+    private val fetchedData = mutableListOf<Attraction>()
+
     private val _attractionList = MutableLiveData<List<Attraction>?>()
     val attractionList: LiveData<List<Attraction>?>
         get() = _attractionList
@@ -32,14 +34,18 @@ class ListViewModel @Inject constructor(
 
             when (val attractionsResult = getAttractionsUseCase(page = 1)){
                 is Resource.Success -> {
-                    _attractionList.value = attractionsResult.data
+
+                    attractionsResult.data?.let { fetchedData.addAll(it) }
+
                     Timber.d("attractionsResult.data  ${attractionsResult.data}")
                 }
                 is Resource.Error -> {
+                    // Enum class defining error msg to be shown accordingly
                     _errorMsg.value = attractionsResult.message
                 }
             }
 
+            _attractionList.value = fetchedData
         }
     }
 

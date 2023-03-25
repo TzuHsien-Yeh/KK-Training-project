@@ -6,6 +6,7 @@ buildscript {
         version_gson = '2.10'
         version_kotlin_coroutines = '1.6.4'
         version_navigation = '2.5.3'
+        version_glide = '4.15.0'
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.45"

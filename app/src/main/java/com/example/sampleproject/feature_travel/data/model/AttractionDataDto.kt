@@ -26,7 +26,7 @@ data class AttractionDataDto(
     @SerializedName("open_time") val openTime: String,
     val remind: String,
     val service: List<Service>,
-    val staytime: String,
+    @SerializedName("staytime") val stayTime: String,
     val target: List<Target>,
     val tel: String,
     val ticket: String,
