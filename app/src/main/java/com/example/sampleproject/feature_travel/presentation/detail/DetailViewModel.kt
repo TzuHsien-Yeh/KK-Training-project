@@ -3,6 +3,7 @@ package com.example.sampleproject.feature_travel.presentation.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sampleproject.feature_travel.domain.model.Attraction
@@ -19,20 +20,23 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
     val attraction: Attraction? = savedStateHandle["attractionKey"]
 
-    val favoriteAttractions: LiveData<List<Attraction>> = favoriteUseCase.getFavoritesUseCase()
+    private val favoriteAttractions: LiveData<List<Attraction>> = favoriteUseCase.getFavoritesUseCase()
 
-
-    init {
-        attraction?.let { addToFavorites(it) }
-        Timber.d("favoriteAttractions = ${favoriteAttractions.value}")
+    val isFavorite: LiveData<Boolean> = Transformations.map(favoriteAttractions) {
+        favoriteAttractions.value?.contains(attraction) ?: false
     }
 
-
-    fun addToFavorites(attraction: Attraction) {
+    fun toggleFavoriteState(isFavoriteNow: Boolean) {
         viewModelScope.launch {
-            Timber.d("addToFavorites: $attraction")
-            favoriteUseCase.addToFavoritesUseCase(attraction)
+            attraction?.let {
+                if (isFavoriteNow) {
+                    favoriteUseCase.deleteFromFavoritesUseCase(it)
+                } else {
+                    favoriteUseCase.addToFavoritesUseCase(it)
+                }
+            }
         }
+
     }
 
 
