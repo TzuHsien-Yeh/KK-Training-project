@@ -19,7 +19,8 @@ fun AttractionDto.toAttractionList(): AttractionList {
             name = attraction.name,
             image = firstImage,
             address = attraction.address,
-            introduction = attraction.introduction
+            introduction = attraction.introduction,
+            openTime = attraction.openTime
         )
 
         list.add(attractionToDisplay)

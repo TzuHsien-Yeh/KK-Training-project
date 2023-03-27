@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sampleproject.NavGraphDirections
 import com.example.sampleproject.R
 import com.example.sampleproject.databinding.FragmentListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,13 +32,15 @@ class ListFragment : Fragment() {
         setUpAttractionRecyclerView()
         loadMoreUponReachingBottom()
         handleError()
+        navigateToAttractionDetail()
 
         return binding.root
     }
 
 
+
     private fun setUpAttractionRecyclerView() {
-        val adapter = AttractionAdapter()
+        val adapter = AttractionAdapter(viewModel.listUiState)
         binding.recyclerViewAttractionList.adapter = adapter
         viewModel.attractionList.observe(viewLifecycleOwner){
             adapter.submitList(it)
@@ -74,4 +78,12 @@ class ListFragment : Fragment() {
         }
     }
 
+    private fun navigateToAttractionDetail() {
+        viewModel.navigateToDetail.observe(viewLifecycleOwner){
+            it?.let {
+                findNavController().navigate(NavGraphDirections.actionGlobalDetailFragment(it))
+                viewModel.doneNavigating()
+            }
+        }
+    }
 }

@@ -10,4 +10,17 @@
         android:name="com.example.sampleproject.feature_travel.presentation.list.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.sampleproject.feature_travel.presentation.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+
+        <argument android:name="attractionKey"
+            app:argType="com.example.sampleproject.feature_travel.domain.model.Attraction"
+            app:nullable="false"/>
+    </fragment>
+
+    <action android:id="@+id/action_global_detailFragment"
+        app:destination="@id/detailFragment" />
 </navigation>

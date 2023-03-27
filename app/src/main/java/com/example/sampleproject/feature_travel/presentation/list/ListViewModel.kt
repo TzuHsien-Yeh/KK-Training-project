@@ -1,13 +1,10 @@
 package com.example.sampleproject.feature_travel.presentation.list
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sampleproject.core.util.Resource
-import com.example.sampleproject.feature_travel.data.source.TravelDataSource
-import com.example.sampleproject.feature_travel.data.source.remote.TravelRemoteDataSource
 import com.example.sampleproject.feature_travel.domain.model.Attraction
 import com.example.sampleproject.feature_travel.domain.usecase.GetAttractionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,6 +32,17 @@ class ListViewModel @Inject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
+    val listUiState = ListUiState(
+        onAttractionClick = {
+            navigateToDetail(it)
+        }
+    )
+
+    private val _navigateToDetail = MutableLiveData<Attraction?>()
+    val navigateToDetail: LiveData<Attraction?>
+        get() = _navigateToDetail
+
+
     fun getAttractions(){
         viewModelScope.launch {
 
@@ -60,7 +68,7 @@ class ListViewModel @Inject constructor(
 
     fun loadMoreAttractions() {
 
-        if (needToLoadMoreAttractions()){
+        if (hasMoreAttractions()){
 
             _isLoading.value = true
 
@@ -87,8 +95,19 @@ class ListViewModel @Inject constructor(
         }
     }
 
-    private fun needToLoadMoreAttractions(): Boolean {
+    private fun hasMoreAttractions(): Boolean {
         return total > fetchedData.size
     }
 
+    private fun navigateToDetail(attraction: Attraction){
+        _navigateToDetail.value = attraction
+    }
+
+    fun doneNavigating(){
+        _navigateToDetail.value = null
+    }
 }
+
+data class ListUiState(
+    val onAttractionClick: (Attraction) -> Unit
+)
