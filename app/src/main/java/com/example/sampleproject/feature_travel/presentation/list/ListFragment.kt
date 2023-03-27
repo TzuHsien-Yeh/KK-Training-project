@@ -34,10 +34,11 @@ class ListFragment : Fragment() {
         handleError()
         navigateToAttractionDetail()
 
+        binding.btnToFav.setOnClickListener {
+            findNavController().navigate(NavGraphDirections.actionGlobalMyFavoriteFragment())
+        }
         return binding.root
     }
-
-
 
     private fun setUpAttractionRecyclerView() {
         val adapter = AttractionAdapter(viewModel.listUiState)

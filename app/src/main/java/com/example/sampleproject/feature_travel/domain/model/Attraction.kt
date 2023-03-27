@@ -2,6 +2,8 @@ package com.example.sampleproject.feature_travel.domain.model
 
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.Ignore
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 // Attractions with the same name and address are treated as the same items
@@ -13,4 +15,7 @@ data class Attraction(
     val address: String,
     val introduction: String,
     val openTime: String
-    ): Parcelable
+    ): Parcelable {
+        @IgnoredOnParcel
+        var isFavorite = false
+    }

@@ -23,4 +23,14 @@
 
     <action android:id="@+id/action_global_detailFragment"
         app:destination="@id/detailFragment" />
+
+    <fragment
+        android:id="@+id/myFavoriteFragment"
+        android:name="com.example.sampleproject.feature_travel.presentation.favorite.MyFavoriteFragment"
+        android:label="fragment_my_favorite"
+        tools:layout="@layout/fragment_my_favorite" />
+
+    <action android:id="@+id/action_global_myFavoriteFragment"
+        app:destination="@id/myFavoriteFragment"/>
+
 </navigation>

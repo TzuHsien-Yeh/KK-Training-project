@@ -40,7 +40,8 @@ object AppModule {
             app,
             AttractionDatabase::class.java,
             AttractionDatabase.DATABASE_NAME
-        ).build()
+        )
+            .build()
     }
 
     @Provides

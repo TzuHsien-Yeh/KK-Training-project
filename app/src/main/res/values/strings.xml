@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SampleProject</string>
     <string name="internet_not_connected">No internet connection</string>
+    <string name="my_favorite">My favorite</string>
 </resources>
