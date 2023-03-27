@@ -14,7 +14,7 @@ class AttractionAdapter(
     ): ListAdapter<Attraction, AttractionAdapter.AttractionViewHolder>(DiffCallBack) {
     class AttractionViewHolder(private val binding: ItemAttractionBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(attraction: Attraction){
-            binding.imgAttraction.loadImage(attraction.image.src)
+            binding.imgAttraction.loadImage(attraction.image)
             binding.textAttractionName.text = attraction.name
             binding.textAddress.text = attraction.address
             binding.textAttractionIntro.text = attraction.introduction
