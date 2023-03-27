@@ -13,10 +13,4 @@
         tools:listitem="@layout/item_attraction"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    <Button
-        android:id="@+id/btn_to_fav"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/my_favorite"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

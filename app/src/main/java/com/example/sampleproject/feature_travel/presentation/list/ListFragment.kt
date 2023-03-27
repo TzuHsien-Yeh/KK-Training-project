@@ -34,9 +34,6 @@ class ListFragment : Fragment() {
         handleError()
         navigateToAttractionDetail()
 
-        binding.btnToFav.setOnClickListener {
-            findNavController().navigate(NavGraphDirections.actionGlobalMyFavoriteFragment())
-        }
         return binding.root
     }
 

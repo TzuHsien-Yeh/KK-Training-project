@@ -2,4 +2,6 @@
     <string name="app_name">SampleProject</string>
     <string name="internet_not_connected">No internet connection</string>
     <string name="my_favorite">My favorite</string>
+    <string name="attraction_list_page_title">Attractions in Taipei</string>
+    <string name="my_favorites">My Favorites</string>
 </resources>

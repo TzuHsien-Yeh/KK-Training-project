@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.sampleproject.core.ext.loadImage
@@ -28,6 +29,9 @@ class DetailFragment : Fragment() {
         val attraction = args.attractionKey
         showAttractionInfo(attraction)
         setFavoriteBtn()
+
+        // Set up toolbar with area name
+        (activity as AppCompatActivity).supportActionBar?.title = attraction.name
 
         return binding.root
     }
