@@ -11,11 +11,9 @@ class GetFavoritesUseCase @Inject constructor(
 ) {
     operator fun invoke(): LiveData<List<Attraction>> {
         val favorites = attractionRepository.getFavoriteAttractions()
-        val fav = Transformations.map(favorites) {
-            for (attraction in it) {
-                attraction.isFavorite = true
-            }
-            it
+        val fav = Transformations.map(favorites) { attractionList ->
+            attractionList.forEach { it.isFavorite = true }
+            attractionList
         }
         return fav
     }
