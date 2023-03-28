@@ -29,7 +29,7 @@ class AddToFavoritesUseCaseTest {
 
     @Test
     fun addAttractionToFavorites_attractionIsInFavoritesList () {
-        val attraction = Attraction("test", "a", "b", "c", "d")
+        val attraction = Attraction(12, "test", "a", "b", "c", "d")
 
         runBlocking { addToFavoritesUseCase(attraction) }
 

@@ -10,6 +10,7 @@ fun AttractionDto.toAttractionList(): AttractionList {
     for(attraction in this.data){
 
         val attractionToDisplay = Attraction(
+            id = attraction.id,
             name = attraction.name,
             image = attraction.images.firstOrNull()?.src ?: "",
             address = attraction.address,

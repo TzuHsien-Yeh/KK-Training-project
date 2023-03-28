@@ -11,14 +11,14 @@ class FakeAttractionRepository: AttractionRepository {
 
     // Attractions info fetched from api
     private val attractions = mutableListOf<Attraction>(
-        Attraction("a", "a", "a", "a", "a"),
-        Attraction("b", "b", "b", "b", "b"),
-        Attraction("c", "c", "c", "c", "c")
+        Attraction(1, "a", "a", "a", "a", "a"),
+        Attraction(2, "b", "b", "b", "b", "b"),
+        Attraction(3, "c", "c", "c", "c", "c")
     )
     private val attractionList = AttractionList(attractions).also { it.total = 7 }
 
     // Attractions saved to my favorites
-    val favorites = mutableListOf(Attraction("c", "c", "c", "c", "c"))
+    val favorites = mutableListOf(Attraction(3, "c", "c", "c", "c", "c"))
 
     // Network error simulation
     private var shouldReturnNetworkError = false
