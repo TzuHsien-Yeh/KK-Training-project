@@ -2,23 +2,17 @@ package com.example.sampleproject.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.sampleproject.BuildConfig
-import com.example.sampleproject.feature_travel.data.repository.TravelRepositoryImpl
-import com.example.sampleproject.feature_travel.data.source.TravelDataSource
-import com.example.sampleproject.feature_travel.data.source.local.AttractionDao
+import com.example.sampleproject.feature_travel.data.repository.AttractionRepositoryImpl
+import com.example.sampleproject.feature_travel.data.source.AttractionDataSource
 import com.example.sampleproject.feature_travel.data.source.local.AttractionDatabase
-import com.example.sampleproject.feature_travel.data.source.local.TravelLocalDataSource
-import com.example.sampleproject.feature_travel.data.source.remote.TravelRemoteDataSource
+import com.example.sampleproject.feature_travel.data.source.local.AttractionLocalDataSource
+import com.example.sampleproject.feature_travel.data.source.remote.AttractionRemoteDataSource
 import com.example.sampleproject.feature_travel.data.source.remote.network.TravelApiService
-import com.example.sampleproject.feature_travel.domain.repository.TravelRepository
+import com.example.sampleproject.feature_travel.domain.repository.AttractionRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -26,12 +20,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    private const val ATTRACTION_REMOTE_DATA_SOURCE = "attractionRemoteDataSource"
+    private const val ATTRACTION_LOCAL_DATA_SOURCE = "attractionLocalDataSource"
+
     @Provides
     @Singleton
-    @Named("travelRemoteDataSource")
-    fun provideTravelRemoteDataSource(
+    @Named(ATTRACTION_REMOTE_DATA_SOURCE)
+    fun provideAttractionRemoteDataSource(
         travelApiService: TravelApiService
-    ): TravelDataSource = TravelRemoteDataSource(travelApiService)
+    ): AttractionDataSource = AttractionRemoteDataSource(travelApiService)
 
     @Provides
     @Singleton
@@ -46,18 +43,18 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("travelLocalDataSource")
+    @Named(ATTRACTION_LOCAL_DATA_SOURCE)
     fun provideTravelLocalDataSource(
         db: AttractionDatabase
-    ): TravelDataSource = TravelLocalDataSource(db.attractionDao)
+    ): AttractionDataSource = AttractionLocalDataSource(db.attractionDao)
 
     @Provides
     @Singleton
     fun provideTravelRepository(
-        @Named("travelRemoteDataSource") travelRemoteDataSource: TravelDataSource,
-        @Named("travelLocalDataSource") travelLocalDataSource: TravelDataSource
-    ): TravelRepository = TravelRepositoryImpl(
-        travelRemoteDataSource = travelRemoteDataSource,
-        travelLocalDataSource = travelLocalDataSource
+        @Named(ATTRACTION_REMOTE_DATA_SOURCE) attractionRemoteDataSource: AttractionDataSource,
+        @Named(ATTRACTION_LOCAL_DATA_SOURCE) attractionLocalDataSource: AttractionDataSource
+    ): AttractionRepository = AttractionRepositoryImpl(
+        attractionRemoteDataSource = attractionRemoteDataSource,
+        attractionLocalDataSource = attractionLocalDataSource
     )
 }

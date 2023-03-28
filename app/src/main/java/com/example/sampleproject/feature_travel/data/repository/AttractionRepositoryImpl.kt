@@ -3,18 +3,18 @@ package com.example.sampleproject.feature_travel.data.repository
 import androidx.lifecycle.LiveData
 import com.example.sampleproject.core.util.Resource
 import com.example.sampleproject.feature_travel.data.mapper.toAttractionList
-import com.example.sampleproject.feature_travel.data.source.TravelDataSource
+import com.example.sampleproject.feature_travel.data.source.AttractionDataSource
 import com.example.sampleproject.feature_travel.domain.model.Attraction
 import com.example.sampleproject.feature_travel.domain.model.AttractionList
-import com.example.sampleproject.feature_travel.domain.repository.TravelRepository
+import com.example.sampleproject.feature_travel.domain.repository.AttractionRepository
 import javax.inject.Inject
 
-class TravelRepositoryImpl @Inject constructor(
-    private val travelRemoteDataSource: TravelDataSource,
-    private val travelLocalDataSource: TravelDataSource
-): TravelRepository {
+class AttractionRepositoryImpl @Inject constructor(
+    private val attractionRemoteDataSource: AttractionDataSource,
+    private val attractionLocalDataSource: AttractionDataSource
+): AttractionRepository {
     override suspend fun getAttractionInfo(lang: String, page: Int): Resource<AttractionList> {
-        return when (val response = travelRemoteDataSource.getAttractions(lang, page)){
+        return when (val response = attractionRemoteDataSource.getAttractions(lang, page)){
             is Resource.Success -> {
                 Resource.Success(response.data?.toAttractionList())
             }
@@ -25,14 +25,14 @@ class TravelRepositoryImpl @Inject constructor(
     }
 
     override fun getFavoriteAttractions(): LiveData<List<Attraction>> {
-        return travelLocalDataSource.getFavoriteAttractions()
+        return attractionLocalDataSource.getFavoriteAttractions()
     }
 
     override suspend fun addAttractionToFavorite(attraction: Attraction) {
-        return travelLocalDataSource.addAttractionToFavorite(attraction)
+        return attractionLocalDataSource.addAttractionToFavorite(attraction)
     }
 
     override suspend fun deleteAttractionFromFavorite(attraction: Attraction) {
-        return travelLocalDataSource.deleteAttractionFromFavorite(attraction)
+        return attractionLocalDataSource.deleteAttractionFromFavorite(attraction)
     }
 }

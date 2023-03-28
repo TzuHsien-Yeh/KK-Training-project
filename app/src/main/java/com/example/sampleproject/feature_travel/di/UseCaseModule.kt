@@ -1,9 +1,6 @@
 package com.example.sampleproject.feature_travel.di
 
-import com.example.sampleproject.feature_travel.data.source.TravelDataSource
-import com.example.sampleproject.feature_travel.data.source.local.AttractionDao
-import com.example.sampleproject.feature_travel.data.source.local.TravelLocalDataSource
-import com.example.sampleproject.feature_travel.domain.repository.TravelRepository
+import com.example.sampleproject.feature_travel.domain.repository.AttractionRepository
 import com.example.sampleproject.feature_travel.domain.usecase.AddToFavoritesUseCase
 import com.example.sampleproject.feature_travel.domain.usecase.DeleteFromFavoritesUseCase
 import com.example.sampleproject.feature_travel.domain.usecase.FavoriteUseCases
@@ -21,11 +18,11 @@ object UseCaseModule {
     @Provides
     @Singleton
     fun provideFavoriteUseCase(
-        travelRepository: TravelRepository
+        attractionRepository: AttractionRepository
     ): FavoriteUseCases = FavoriteUseCases(
-        GetFavoritesUseCase(travelRepository),
-        AddToFavoritesUseCase(travelRepository),
-        DeleteFromFavoritesUseCase(travelRepository)
+        GetFavoritesUseCase(attractionRepository),
+        AddToFavoritesUseCase(attractionRepository),
+        DeleteFromFavoritesUseCase(attractionRepository)
     )
 
 }

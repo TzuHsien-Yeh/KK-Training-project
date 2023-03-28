@@ -5,7 +5,7 @@ import com.example.sampleproject.R
 import com.example.sampleproject.core.util.Resource
 import com.example.sampleproject.core.util.Util
 import com.example.sampleproject.feature_travel.data.model.AttractionDto
-import com.example.sampleproject.feature_travel.data.source.TravelDataSource
+import com.example.sampleproject.feature_travel.data.source.AttractionDataSource
 import com.example.sampleproject.feature_travel.data.source.remote.network.TravelApiService
 import com.example.sampleproject.feature_travel.domain.model.Attraction
 import kotlinx.coroutines.Dispatchers
@@ -16,9 +16,9 @@ import javax.inject.Inject
 
 
 
-class TravelRemoteDataSource @Inject constructor(
+class AttractionRemoteDataSource @Inject constructor(
     private val travelApiService: TravelApiService
-) : TravelDataSource {
+) : AttractionDataSource {
     override suspend fun getAttractions(lang: String, page: Int): Resource<AttractionDto> =
         withContext(Dispatchers.IO) {
 
