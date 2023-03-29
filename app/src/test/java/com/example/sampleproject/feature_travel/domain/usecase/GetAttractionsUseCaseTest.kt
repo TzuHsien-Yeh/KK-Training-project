@@ -3,14 +3,11 @@ package com.example.sampleproject.feature_travel.domain.usecase
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.sampleproject.MainCoroutineRule
 import com.example.sampleproject.feature_travel.data.repository.FakeAttractionRepository
-import com.example.sampleproject.feature_travel.domain.model.Attraction
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import retrofit2.HttpException
 
 
 class GetAttractionsUseCaseTest {
@@ -39,4 +36,14 @@ class GetAttractionsUseCaseTest {
         assertThat(result.message).isEqualTo(fakeRepository.networkErrorMsg)
         assertThat(result.data).isEqualTo(null)
     }
+
+    @Test
+    fun getAttractions_successfullyRetrievedData_returnsAttractions() {
+        val result = runBlocking { getAttractionUseCase() }
+
+        assertThat(result.message).isNull()
+        assertThat(result.data).isEqualTo(fakeRepository.attractionList)
+        assertThat(result.data?.total).isEqualTo(fakeRepository.attractionList.total)
+    }
+
 }

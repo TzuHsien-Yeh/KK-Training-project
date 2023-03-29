@@ -15,7 +15,7 @@ class FakeAttractionRepository: AttractionRepository {
         Attraction(2, "b", "b", "b", "b", "b"),
         Attraction(3, "c", "c", "c", "c", "c")
     )
-    private val attractionList = AttractionList(attractions).also { it.total = 7 }
+    val attractionList = AttractionList(attractions).also { it.total = 7 }
 
     // Attractions saved to my favorites
     val favorites = mutableListOf(Attraction(3, "c", "c", "c", "c", "c"))
