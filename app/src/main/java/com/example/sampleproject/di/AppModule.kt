@@ -38,6 +38,7 @@ object AppModule {
             AttractionDatabase::class.java,
             AttractionDatabase.DATABASE_NAME
         )
+            .fallbackToDestructiveMigration()
             .build()
     }
 

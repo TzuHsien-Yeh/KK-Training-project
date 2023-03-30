@@ -1,8 +1,8 @@
 package com.example.sampleproject.feature_travel.domain.model
 
 import android.os.Parcelable
+import androidx.annotation.RawRes
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
@@ -16,8 +16,9 @@ data class Attraction(
     val image: String,
     val address: String,
     val introduction: String,
-    val openTime: String
-    ): Parcelable {
-        @IgnoredOnParcel
-        var isFavorite = false
-    }
+    val openTime: String,
+    @RawRes val video: Int
+) : Parcelable {
+    @IgnoredOnParcel
+    var isFavorite = false
+}

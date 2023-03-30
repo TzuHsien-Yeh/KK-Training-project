@@ -5,25 +5,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/player_view_attraction"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="16:9"
+        app:surface_type="texture_view"
+        app:use_artwork="true"/>
+
     <ImageView
         android:id="@+id/img_attraction"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toTopOf="@id/player_view_attraction"
+        app:layout_constraintStart_toStartOf="@id/player_view_attraction"
+        app:layout_constraintEnd_toEndOf="@id/player_view_attraction"
+        app:layout_constraintDimensionRatio="16:9"/>
 
     <TextView
         android:id="@+id/text_attraction_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/img_attraction"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/player_view_attraction"
+        app:layout_constraintStart_toStartOf="parent"
         android:textSize="17sp"
         tools:text="attraction_name" />
 
@@ -48,13 +59,12 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintTop_toBottomOf="@id/text_address"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/text_address"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="14sp"
         android:maxLines="2"
         android:ellipsize="end"
         tools:text="123456789012345678901234567891234567890123456789012345671234567893456045"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

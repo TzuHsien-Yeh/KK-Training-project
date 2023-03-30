@@ -1,17 +1,15 @@
 package com.example.sampleproject.feature_travel.presentation.list
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sampleproject.NavGraphDirections
-import com.example.sampleproject.R
 import com.example.sampleproject.databinding.FragmentListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber

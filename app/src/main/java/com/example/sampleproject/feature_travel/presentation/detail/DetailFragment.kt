@@ -1,6 +1,7 @@
 package com.example.sampleproject.feature_travel.presentation.detail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.sampleproject.core.ext.loadImage
 import com.example.sampleproject.databinding.FragmentDetailBinding
 import com.example.sampleproject.feature_travel.domain.model.Attraction
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -30,10 +32,23 @@ class DetailFragment : Fragment() {
         showAttractionInfo(attraction)
         setFavoriteBtn()
 
+        setUpVideoPlayer()
+        Timber.d("onCreateView attraction = $attraction")
+
         // Set up toolbar with area name
         (activity as AppCompatActivity).supportActionBar?.title = attraction.name
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.initPlayer()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.releaseVideoPlayer()
     }
 
     private fun showAttractionInfo(attraction: Attraction) {
@@ -55,6 +70,21 @@ class DetailFragment : Fragment() {
                 viewModel.toggleFavoriteState(isFavorite)
             }
         }
+    }
+
+    private fun setUpVideoPlayer() {
+        binding.videoView.player = viewModel.player
+
+        viewModel.initPlayer()
+
+        binding.imgAttraction.apply {
+            loadImage(viewModel.attraction?.image)
+            alpha = 0.5f
+            setOnClickListener {
+                binding.imgAttraction.visibility = View.GONE
+            }
+        }
+
     }
 
 }
