@@ -1,19 +1,28 @@
 package com.example.sampleproject.feature_travel.presentation.detail
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.sampleproject.core.ext.loadImage
 import com.example.sampleproject.databinding.FragmentDetailBinding
 import com.example.sampleproject.feature_travel.domain.model.Attraction
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.net.URL
+
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -41,18 +50,8 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.initPlayer()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        viewModel.releaseVideoPlayer()
-    }
-
     private fun showAttractionInfo(attraction: Attraction) {
-        binding.imgAttraction.loadImage(attraction.image)
+//        binding.imgAttraction.loadImage(attraction.image)
         binding.textAttractionName.text = attraction.name
         binding.textAddress.text = attraction.address
         binding.textAttractionIntro.text = attraction.introduction
@@ -72,18 +71,46 @@ class DetailFragment : Fragment() {
         }
     }
 
+    @SuppressLint("UnsafeOptInUsageError")
     private fun setUpVideoPlayer() {
-        binding.videoView.player = viewModel.player
-
+        binding.videoView.apply {
+            player = viewModel.player
+            useController = true
+            setShowShuffleButton(false)
+            setShowFastForwardButton(false)
+            setShowRewindButton(false)
+            setShowPreviousButton(false)
+            setShowNextButton(false)
+        }
         viewModel.initPlayer()
 
-        binding.imgAttraction.apply {
-            loadImage(viewModel.attraction?.image)
-            alpha = 0.5f
-            setOnClickListener {
-                binding.imgAttraction.visibility = View.GONE
-            }
-        }
+//        Glide.with(this)
+//            .asBitmap()
+//            .load(viewModel.attraction?.image)
+//            .into(object : CustomTarget<Bitmap>(){
+//                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+//                    binding.videoView.defaultArtwork = (BitmapDrawable(resource))
+//                }
+//                override fun onLoadCleared(placeholder: Drawable?) {
+//                }
+//            })
+
+//        viewModel.shouldShowThumbnail.observe(viewLifecycleOwner) {
+//            if (it) {
+//                Glide.with(this)
+//                    .asBitmap()
+//                    .load(viewModel.attraction?.image)
+//                    .into(object : CustomTarget<Bitmap>(){
+//                        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+//                            binding.playerControlView.setBackgroundDrawable(BitmapDrawable(resource))
+//                        }
+//                        override fun onLoadCleared(placeholder: Drawable?) {
+//                        }
+//                    })
+//            } else {
+//                binding.playerControlView.setBackgroundDrawable(null)
+//            }
+//        }
 
     }
 

@@ -21,24 +21,25 @@ class AttractionAdapter (
 
     class AttractionViewHolder(private val binding: ItemAttractionBinding): RecyclerView.ViewHolder(binding.root) {
 
-        val player = ExoPlayer.Builder(binding.root.context).build()
+//        val player = ExoPlayer.Builder(binding.root.context).build()
 
         fun bind(attraction: Attraction){
-            binding.playerViewAttraction.player  = player
-            player.apply {
-                setMediaItem(MediaItem.fromUri(attraction.video.toUri()))
-                playWhenReady = false
-                prepare()
-            }
-            binding.imgAttraction.apply {
-                loadImage(attraction.image)
-                alpha = 0.5f
-                setOnClickListener {
-                    visibility = View.GONE
-                    player.play()
-                }
 
-            }
+            binding.imgAttraction.loadImage(attraction.image)
+//            binding.playerViewAttraction.player  = player
+//            player.apply {
+//                setMediaItem(MediaItem.fromUri(attraction.video.toUri()))
+//                playWhenReady = false
+//                prepare()
+//            }
+//            binding.imgAttraction.apply {
+//                loadImage(attraction.image)
+//                alpha = 0.5f
+//                setOnClickListener {
+//                    visibility = View.GONE
+//                    player.play()
+//                }
+//            }
 
             binding.textAttractionName.text = attraction.name
             binding.textAddress.text = attraction.address
@@ -72,9 +73,9 @@ class AttractionAdapter (
         holder.bind(item)
     }
 
-    override fun onViewRecycled(holder: AttractionViewHolder) {
-        super.onViewRecycled(holder)
-        holder.player.stop()
-    }
+//    override fun onViewRecycled(holder: AttractionViewHolder) {
+//        super.onViewRecycled(holder)
+//        holder.player.stop()
+//    }
 
 }
