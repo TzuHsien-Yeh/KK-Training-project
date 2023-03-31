@@ -14,7 +14,7 @@ class FavoritesAdapter(
     ): ListAdapter<Attraction, FavoritesAdapter.AttractionViewHolder>(DiffCallBack) {
     class AttractionViewHolder(private val binding: ItemFavoriteBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(attraction: Attraction, favoriteUiState: FavoriteUiState){
-            binding.imgAttraction.loadImage(attraction.image)
+            binding.imgAttraction.loadImage(attraction.images.firstOrNull())
             binding.textAttractionName.text = attraction.name
             binding.textAddress.text = attraction.address
             binding.textAttractionIntro.text = attraction.introduction

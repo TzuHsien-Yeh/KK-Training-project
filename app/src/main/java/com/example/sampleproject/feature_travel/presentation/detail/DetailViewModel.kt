@@ -36,42 +36,6 @@ class DetailViewModel @Inject constructor(
         favoriteAttractions.value?.contains(attraction) ?: false
     }
 
-//    private val _shouldShowThumbnail = MutableLiveData<Boolean>()
-//    val shouldShowThumbnail: LiveData<Boolean>
-//        get() = _shouldShowThumbnail
-
-    fun initPlayer() {
-
-        Timber.d("initPlayer attraction $attraction")
-
-        attraction?.let {
-//            val thumbnail = attraction.image.toByteArray()
-//
-//            @SuppressLint("UnsafeOptInUsageError")
-//            val mediaMetadata = MediaMetadata.Builder().setArtworkData(thumbnail).build()
-//            val mediaItem = MediaItem.Builder()
-//                .setMediaMetadata(mediaMetadata)
-//                .setUri((it.video.toUri()))
-//                .build()
-//            player.setMediaItem(mediaItem)
-            player.setMediaItem(MediaItem.fromUri(it.video.toUri()))
-
-            Timber.d("setMediaItem: ${it.video.toUri()}")
-            player.prepare()
-        }
-
-//        player.addListener(object : Player.Listener {
-//            override fun onPlaybackStateChanged(playbackState: Int) {
-//                super.onPlaybackStateChanged(playbackState)
-//                when(playbackState) {
-//                    Player.STATE_IDLE -> _shouldShowThumbnail.value = true
-//                    Player.STATE_BUFFERING -> _shouldShowThumbnail.value = true
-//                    else -> _shouldShowThumbnail.value = false
-//                }
-//            }
-//        })
-    }
-
     fun toggleFavoriteState(isFavoriteNow: Boolean) {
         viewModelScope.launch {
             attraction?.let {

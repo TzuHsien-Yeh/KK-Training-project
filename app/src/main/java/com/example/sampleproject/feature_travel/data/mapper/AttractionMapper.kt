@@ -10,10 +10,16 @@ fun AttractionDto.toAttractionList(): AttractionList {
 
     for(attraction in this.data){
 
+        val imageList = mutableListOf<String>()
+
+        for (img in attraction.images) {
+            imageList.add(img.src)
+        }
+
         val attractionToDisplay = Attraction(
             id = attraction.id,
             name = attraction.name,
-            image = attraction.images.firstOrNull()?.src ?: "",
+            images = imageList,
             address = attraction.address,
             introduction = attraction.introduction,
             openTime = attraction.openTime,

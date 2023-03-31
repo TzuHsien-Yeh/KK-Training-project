@@ -13,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.sampleproject.core.ext.loadImage
 import com.example.sampleproject.databinding.FragmentDetailBinding
 import com.example.sampleproject.feature_travel.domain.model.Attraction
+import com.example.sampleproject.feature_travel.presentation.detail.media.MediaAdapter
+import com.example.sampleproject.feature_travel.presentation.mapper.toAttractionMedia
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.net.URL
@@ -38,10 +41,10 @@ class DetailFragment : Fragment() {
 
         val args: DetailFragmentArgs by navArgs()
         val attraction = args.attractionKey
+        setUpCarouselView()
         showAttractionInfo(attraction)
         setFavoriteBtn()
 
-        setUpVideoPlayer()
         Timber.d("onCreateView attraction = $attraction")
 
         // Set up toolbar with area name
@@ -50,8 +53,15 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
+    private fun setUpCarouselView() {
+        val adapter = MediaAdapter(viewModel.player)
+        binding.recyclerViewAttractionMedia.adapter = adapter
+        adapter.submitList(viewModel.attraction?.toAttractionMedia())
+
+        LinearSnapHelper().attachToRecyclerView(binding.recyclerViewAttractionMedia)
+    }
+
     private fun showAttractionInfo(attraction: Attraction) {
-//        binding.imgAttraction.loadImage(attraction.image)
         binding.textAttractionName.text = attraction.name
         binding.textAddress.text = attraction.address
         binding.textAttractionIntro.text = attraction.introduction
@@ -69,49 +79,6 @@ class DetailFragment : Fragment() {
                 viewModel.toggleFavoriteState(isFavorite)
             }
         }
-    }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    private fun setUpVideoPlayer() {
-        binding.videoView.apply {
-            player = viewModel.player
-            useController = true
-            setShowShuffleButton(false)
-            setShowFastForwardButton(false)
-            setShowRewindButton(false)
-            setShowPreviousButton(false)
-            setShowNextButton(false)
-        }
-        viewModel.initPlayer()
-
-//        Glide.with(this)
-//            .asBitmap()
-//            .load(viewModel.attraction?.image)
-//            .into(object : CustomTarget<Bitmap>(){
-//                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-//                    binding.videoView.defaultArtwork = (BitmapDrawable(resource))
-//                }
-//                override fun onLoadCleared(placeholder: Drawable?) {
-//                }
-//            })
-
-//        viewModel.shouldShowThumbnail.observe(viewLifecycleOwner) {
-//            if (it) {
-//                Glide.with(this)
-//                    .asBitmap()
-//                    .load(viewModel.attraction?.image)
-//                    .into(object : CustomTarget<Bitmap>(){
-//                        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-//                            binding.playerControlView.setBackgroundDrawable(BitmapDrawable(resource))
-//                        }
-//                        override fun onLoadCleared(placeholder: Drawable?) {
-//                        }
-//                    })
-//            } else {
-//                binding.playerControlView.setBackgroundDrawable(null)
-//            }
-//        }
-
     }
 
 }
