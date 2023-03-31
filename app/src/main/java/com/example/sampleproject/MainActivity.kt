@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+        supportActionBar?.title = getString(R.string.attraction_list_page_title)
 
         navController.addOnDestinationChangedListener { controller, destination, _ ->
             when (destination.id) {
