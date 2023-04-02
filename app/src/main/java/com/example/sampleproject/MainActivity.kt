@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpBottomNav() {
-        binding.bottomNavView.setOnItemReselectedListener { item ->
+        binding.bottomNavView.setOnItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.listFragment -> {
                     if (navController.currentDestination?.id != R.id.listFragment) {
@@ -102,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+            true
         }
     }
 
