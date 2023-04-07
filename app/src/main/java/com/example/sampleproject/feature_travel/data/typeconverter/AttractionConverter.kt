@@ -12,12 +12,12 @@ class AttractionConverter {
     private val listType: Type = object : TypeToken<ArrayList<String?>?>() {}.type
 
     @TypeConverter
-    fun petsFromJsonArray(json: String?): List<String?>? {
+    fun stringListFromJsonArray(json: String?): List<String?>? {
         return gson.fromJson(json, listType)
     }
 
     @TypeConverter
-    fun petsToJsonArray(list: List<String?>?): String? {
+    fun stringListToJsonArray(list: List<String?>?): String? {
         return gson.toJson(list)
     }
 }
