@@ -19,6 +19,7 @@ class GetAttractionsUseCase @Inject constructor(
             if (Locale.getDefault().country == "TW") "zh-tw" else "zh-cn"
         } else {
             Locale.getDefault().language
+            // TODO: if default lang is not in the lang list available in the api doc, set en
         }
 
         Timber.d("systemLang = $systemLang")

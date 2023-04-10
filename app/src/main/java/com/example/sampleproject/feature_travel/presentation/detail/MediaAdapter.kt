@@ -1,4 +1,4 @@
-package com.example.sampleproject.feature_travel.presentation.detail.media
+package com.example.sampleproject.feature_travel.presentation.detail
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

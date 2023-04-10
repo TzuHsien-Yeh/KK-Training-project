@@ -1,31 +1,19 @@
 package com.example.sampleproject.feature_travel.presentation.detail
 
-import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
-import com.example.sampleproject.core.ext.loadImage
 import com.example.sampleproject.databinding.FragmentDetailBinding
 import com.example.sampleproject.feature_travel.domain.model.Attraction
-import com.example.sampleproject.feature_travel.presentation.detail.media.MediaAdapter
 import com.example.sampleproject.feature_travel.presentation.mapper.toAttractionMedia
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.net.URL
 
 
 @AndroidEntryPoint
