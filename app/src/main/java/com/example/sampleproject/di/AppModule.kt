@@ -45,13 +45,13 @@ object AppModule {
     @Provides
     @Singleton
     @Named(ATTRACTION_LOCAL_DATA_SOURCE)
-    fun provideTravelLocalDataSource(
+    fun provideAttractionLocalDataSource(
         db: AttractionDatabase
     ): AttractionDataSource = AttractionLocalDataSource(db.attractionDao)
 
     @Provides
     @Singleton
-    fun provideTravelRepository(
+    fun provideAttractionRepository(
         @Named(ATTRACTION_REMOTE_DATA_SOURCE) attractionRemoteDataSource: AttractionDataSource,
         @Named(ATTRACTION_LOCAL_DATA_SOURCE) attractionLocalDataSource: AttractionDataSource
     ): AttractionRepository = AttractionRepositoryImpl(

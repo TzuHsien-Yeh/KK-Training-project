@@ -1,4 +1,4 @@
-package com.example.sampleproject.feature_travel.presentation.mapper
+package com.example.sampleproject.feature_travel.domain.mapper
 
 import com.example.sampleproject.feature_travel.domain.model.Attraction
 import com.example.sampleproject.feature_travel.presentation.model.AttractionMedia

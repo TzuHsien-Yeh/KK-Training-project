@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.sampleproject.databinding.FragmentDetailBinding
 import com.example.sampleproject.feature_travel.domain.model.Attraction
-import com.example.sampleproject.feature_travel.presentation.mapper.toAttractionMedia
+import com.example.sampleproject.feature_travel.domain.mapper.toAttractionMedia
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -20,13 +20,15 @@ import timber.log.Timber
 class DetailFragment : Fragment() {
 
     private val viewModel: DetailViewModel by viewModels()
-    private lateinit var binding: FragmentDetailBinding
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDetailBinding.inflate(layoutInflater)
+
+        _binding = FragmentDetailBinding.inflate(layoutInflater)
 
         val args: DetailFragmentArgs by navArgs()
         val attraction = args.attractionKey
@@ -43,7 +45,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun setUpCarouselView() {
-        val adapter = MediaAdapter(viewModel.player)
+        val adapter = MediaAdapter(player = viewModel.player)
         binding.recyclerViewAttractionMedia.adapter = adapter
         adapter.submitList(viewModel.attraction?.toAttractionMedia())
 
@@ -51,16 +53,19 @@ class DetailFragment : Fragment() {
     }
 
     private fun showAttractionInfo(attraction: Attraction) {
-        binding.textAttractionName.text = attraction.name
-        binding.textAddress.text = attraction.address
-        binding.textAttractionIntro.text = attraction.introduction
-        binding.textAttractionOpenTime.text = attraction.openTime
+        with(binding) {
+            textAttractionName.text = attraction.name
+            textAddress.text = attraction.address
+            textAttractionIntro.text = attraction.introduction
+            textAttractionOpenTime.text = attraction.openTime
+        }
     }
 
     private fun setFavoriteBtn() {
         viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
             val starStatus =
-                if (isFavorite) android.R.drawable.btn_star_big_on else android.R.drawable.btn_star_big_off
+                if (isFavorite) android.R.drawable.btn_star_big_on
+                else android.R.drawable.btn_star_big_off
 
             binding.btnFavorite.setImageResource(starStatus)
 
@@ -70,4 +75,8 @@ class DetailFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

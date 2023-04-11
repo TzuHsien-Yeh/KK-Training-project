@@ -14,6 +14,9 @@ class GetAttractionsUseCase @Inject constructor(
     suspend operator fun invoke (): Resource<AttractionList> {
 
         nextPage++
+        // TODO: DO NOT decide page to call in the use cases
+        //  as they may be called from other classes 
+        // loading status is UI related > can be appropriate to put it in the viewModel
 
         val systemLang = if (Locale.getDefault().language == "zh") {
             if (Locale.getDefault().country == "TW") "zh-tw" else "zh-cn"

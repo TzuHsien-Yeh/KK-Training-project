@@ -18,13 +18,14 @@ import timber.log.Timber
 class ListFragment : Fragment() {
 
     private val viewModel: ListViewModel by viewModels()
-    private lateinit var binding: FragmentListBinding
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentListBinding.inflate(layoutInflater)
+        _binding = FragmentListBinding.inflate(layoutInflater)
 
         viewModel.getAttractions()
         setUpAttractionRecyclerView()
@@ -81,5 +82,10 @@ class ListFragment : Fragment() {
                 viewModel.doneNavigating()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
